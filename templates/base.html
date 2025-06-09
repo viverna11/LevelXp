@@ -6,20 +6,23 @@
     <title>LevelXP</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="shortcut icon" href="{% static 'favicons/LevelXP_logo.png' %}">
 </head>
 
 <body>
-    <h1>ласкаво просимо на LevelXP</h1>
-    {% if request.user.is_authenticated %}
-        <a href="{% url 'logout' %}"><button class="">Вийти</button></a>
-    {% else %}
-        <a href="{% url 'login' %}"><button class="">увійти в профіль</button></a>
-    {% endif %}
-
-    {% block footer %}
+    <div class="main-box background">
+        <h1><a href="{% url 'post_list' %}"><img src="../static/favicons/LevelXP_logo.png" alt="" style="width:32px; border-radius: 25px;">LevelXP</h1></a>
+        <div>
+            <a href="{% url 'post_list' %}"><button class="custom-button">Головна</button></a>
+            <a href="{% url 'profile' %}"><button class="custom-button">профіль</button></a>
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'logout' %}"><button class="custom-button">Вийти</button></a>
+            {% else %}
+                <a href="{% url 'login' %}"><button class="custom-button">увійти в профіль</button></a>
+            {% endif %}
+        </div>
+    </div>
+    {% block content %}
     {% endblock %}
-
-
-    <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>

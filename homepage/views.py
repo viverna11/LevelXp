@@ -1,6 +1,17 @@
 from django.shortcuts import render
+from django.views.generic import ListView
+from .models import Post
+
 
 # Create your views here.
-def homepage_view(request):
+class PostListView(ListView):
+    model = Post
+    context_object_name = "posts"
+    
 
-    return render(request, 'homepage/home.html')
+def post_detail(request, pk):
+    post = Post.objects.get(pk=pk)
+    context = {
+        'post': post,
+    }
+    return render(request, 'homepage/post_detail.html', context)
