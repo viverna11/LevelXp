@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="main-list content-box-full main-box">
+    <form method="post" action="{% url 'post_delete' post.pk %}">
+        {% csrf_token %}
+        <h2>Видалити пост</h2>
+        <p>Ви впевнені, що хочете видалити цей пост?</p>
+        <p><strong>{{ post.title }}</strong></p>
+        <button type="submit" class="custom-button">Так, видалити</button>
+        <a href="{% url 'post_detail' post.pk %}"><button type="button" class="custom-button">Скасувати</button></a>
+    </form>
+</div>
+
+{% endblock %}

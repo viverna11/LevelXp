@@ -7,6 +7,7 @@
 body{
     background-image: url("../img/background.png");
     height: 100%;
+    margin: 0px;
 }
 a{
     text-decoration: none;
@@ -19,7 +20,7 @@ a{
 }
 .main-box{
     display: flex;
-    align-items: center;
+    align-items:center;
     justify-content:space-around;
     height: 100%;
 }
@@ -84,4 +85,10 @@ a{
     width: 25px;
     height: 25px;
 
+}
+.column{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }

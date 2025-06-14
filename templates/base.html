@@ -11,8 +11,9 @@
 
 <body>
     <div class="main-box background">
-        <h1><a href="{% url 'post_list' %}"><img src="../static/favicons/LevelXP_logo.png" alt="" style="width:32px; border-radius: 25px;">LevelXP</h1></a>
+        <h1><a href="{% url 'post_list' %}"><img src="{% static 'favicons/LevelXP_logo.png' %}"  alt="logo" style="width:32px; border-radius: 25px;">LevelXP</h1></a>
         <div>
+            <a href="{% url 'post_create' %}"><button class="custom-button">+</button></a>
             <a href="{% url 'post_list' %}"><button class="custom-button">Головна</button></a>
             <a href="{% url 'profile' %}"><button class="custom-button">профіль</button></a>
             {% if request.user.is_authenticated %}
