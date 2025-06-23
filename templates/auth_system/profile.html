@@ -1,19 +1,27 @@
 {% extends "base.html" %}
 {% block content %}
-<div>
-    <img src="{{ user.avatar.url }}" alt="Avatar" class="profile">
+{% load static %}
+<div class="column main-box">
     <div>
-        username: {{ user.username }} профіль створенно: {{user.created_at}}
+        {% if user.custom_user.avatar %}
+        <img src="{{ user.custom_user.avatar.url }}" alt="Avatar" class="profile">
+        {% else %}
+        <img src="{% static 'img/default_avatar.png' %}" alt="Avatar" class="profile">
+        {% endif %}
+        <div>
+            username: {{ user.username }} профіль створенно: {{user.created_at}}
+            <p>Bio: {{ user.custom_user.bio }}</p>
+        </div>
     </div>
-</div>
-<div class="content-box">
-    {% for post in my_post %}
-    <div class="content-box">
-        <h2>{{ post.title }}</h2>
-        <p>{{ post.content }}</p>
-        <p>Створено: {{ post.created_at }}</p>
-        <p>Автор: {{ post.author.username }}</p>
+    <div class="content-box main-box">
+        {% for post in my_post %}
+        <div class="content-box">
+            <h2>{{ post.title }}</h2>
+            <p>{{ post.content }}</p>
+            <p>Створено: {{ post.created_at }}</p>
+            <p>Автор: {{ post.author.username }}</p>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 </div>
 {% endblock %}

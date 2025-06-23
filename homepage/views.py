@@ -8,6 +8,17 @@ from . import forms, models
 class PostListView(ListView):
     model = Post
     context_object_name = "posts"
+    def get_queryset(self, request):
+        if request.method == 'POST':
+            author = request.user
+            content = request.POST.get('content')
+            comment = Post.objects.create(
+                post=Post.objects.get(pk=pk),
+                author=author,
+                content=content,
+            )
+
+        return render(request, 'homepage/create_comment.html', {'post': post})  
     
 
 def post_detail(request, pk):
@@ -20,7 +31,6 @@ def post_detail(request, pk):
 def edit_post(request, pk):
     post = Post.objects.get(pk=pk)
     if request.method == 'POST':
-        # form = forms.
         post.title = request.POST.get('title')
         post.content = request.POST.get('content')
         post.save()
@@ -50,4 +60,16 @@ def post_create(request):
             return redirect('post_detail', pk=post.pk)
     else:
         form = forms.CreatePost()
-    return render(request, 'homepage/post_create.html', {'form': form})    
+    return render(request, 'homepage/post_create.html', {'form': form})  
+
+def create_comment(request, pk):
+    if request.method == 'POST':
+        author = request.user
+        content = request.POST.get('content')
+        comment = Post.objects.create(
+            post=Post.objects.get(pk=pk),
+            author=author,
+            content=content,
+        )
+
+    return render(request, 'homepage/create_comment.html', {'post': post})  

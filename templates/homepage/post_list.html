@@ -1,12 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
+{% load static %}
 <div class="main-list">
     {% for post in posts %}
-        <a href="{% url 'post_detail' pk=post.pk %}"><div class='content-box'>
-                <p><img src="{{ user.avatar.url }}" alt="Avatar" class="mini-profile" onerror="this.onerror=null;this.src='/static/img/default_avatar.png';">
-                    author: {{ post.author }}, created_at: {{ post.created_at}}</p>
-                <h2>{{ post.title }}</h2>
-                <p>{{ post.content }}</p>
+        <a href="{% url 'post_detail' pk=post.pk %}"><div class='content-box' >
+            {% if post.author.custom_user.avatar.url == "/static/img/default_avatar.png" %}
+                <img src="static/img/default_avatar.png" alt="Avatar" class="mini-profile">
+                fgdfgdf
+            {% else %}
+                <img src="{{ post.author.custom_user.avatar.url }}" alt="Avatar" class="mini-profile">
+            {% endif %}
+            <p>{{ post.author.custom_user.avatar.url }}
+                {% static 'img/default_avatar.png' %}</p>
+
+            <p>author: {{ post.author }}, created_at: {{ post.created_at}}</p>
+            <h2>{{ post.title }}</h2>
+            <p>{{ post.content }}</p>
         </div></a>
     {% endfor %}
 </div>    
