@@ -14,7 +14,7 @@
         {% endif %}
     </div>
     <div class="content-box ">
-        <form method="post" action="">
+        <form method="post" action="{% url 'post_detail' pk=post.pk %}">
             {% csrf_token %}
             <div>
                 <label for="">comment</label>
@@ -22,19 +22,27 @@
             </div>
             <button type="submit" class="custom-button">post</button>
         </form>
-        {% if post.comment %}
-            {% for comment in post.comment %}
-            <div>
-                {{ comment.author }}: {{ comment.created }} <br>
-                <p>{{ comment.content }}</p>
-                {% if comment.author == user %}
-                    <a href="{% url 'comment_delete' pk=comment.pk %}">Delete</a>
-                {% endif %}
-            </div>
-            {% endfor %}
-        {% else %}
+    
+        {% for comment in comments %}
+        <div>
+            <p>
+            {% if post.author.custom_user.avatar.url == "/static/img/default_avatar.png" %}
+                <img src="static/img/default_avatar.png" alt="Avatar" class="mini-profile">
+                fgdfgdf
+            {% else %}
+                <img src="{{ comment.author.custom_user.avatar.url }}" alt="Avatar" class="mini-profile">
+            {% endif %}    
+            {{ comment.author }}: {{ comment.created_at }} 
+            </p>
+            <p>{{ comment.content }}</p>
+            {% if comment.author == user %}
+                <a href="{% url 'comment_delete' pk=post.pk comment_pk=comment.pk %}"><button class="custom-button">Delete</button></a>
+            {% endif %}
+        </div>
+        {% empty %}
         <p>No comments yet.</p>
-        {% endif %}
+        {% endfor %}
+
     </div>
 </div>
 {% endblock %}

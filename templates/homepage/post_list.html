@@ -10,9 +10,6 @@
             {% else %}
                 <img src="{{ post.author.custom_user.avatar.url }}" alt="Avatar" class="mini-profile">
             {% endif %}
-            <p>{{ post.author.custom_user.avatar.url }}
-                {% static 'img/default_avatar.png' %}</p>
-
             <p>author: {{ post.author }}, created_at: {{ post.created_at}}</p>
             <h2>{{ post.title }}</h2>
             <p>{{ post.content }}</p>

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView
-from .models import Post
+from .models import Post, Comment
 from . import forms, models
 
 
@@ -8,23 +8,24 @@ from . import forms, models
 class PostListView(ListView):
     model = Post
     context_object_name = "posts"
-    def get_queryset(self, request, pk):
-        if request.method == 'POST':
-            author = request.user
-            content = request.POST.get('content')
-            comment = Post.objects.create(
-                post=Post.objects.get(pk=pk),
-                author=author,
-                content=content,
-            )
-
-        return render(request, 'homepage/create_comment.html')  
     
 
 def post_detail(request, pk):
     post = Post.objects.get(pk=pk)
+    
+    if request.method == 'POST':
+        author = request.user
+        content = request.POST.get('content')
+        comment = Comment.objects.create(
+            post=post,
+            author=author,
+            content=content,
+        )
+        return redirect('post_detail', pk=pk)
+    comments = post.comments.all()
     context = {
         'post': post,
+        'comments': comments,
     }
     return render(request, 'homepage/post_detail.html', context)
 
@@ -72,4 +73,18 @@ def post_create(request):
 #             content=content,
 #         )
 
-#     return render(request, 'homepage/create_comment.html', {'post': post})  
+#     return render(request, 'homepage/create_comment.html', {'post': post}) 
+ 
+def comment_delete(request, pk, comment_pk):
+    post = Post.objects.get(pk=pk)
+    comment = Comment.objects.get(pk=comment_pk)
+    if request.method == 'POST':
+        comment.delete()
+        return redirect('post_detail', pk=pk)
+    return render(request, 'homepage/comment_delete.html', {'post': post, 'comment': comment})
+
+
+
+
+
+

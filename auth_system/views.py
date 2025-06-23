@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from homepage.models import Post
@@ -9,15 +9,15 @@ def login_view(request):
     user = authenticate(request, username=user_name, password=password)
     if user:
         login(request, user)
-        return render(request, 'homepage/post_list.html')
+        return redirect('post_list')
     return render(request, 'auth_system/login.html')
 
 
 def logout_view(request):
     logout(request)
-    return render(request, 'homepage/post_list.html')
+    return redirect('post_list')
 
-
+ 
 def user_view(request):
     my_post = Post.objects.filter(author=request.user)
     avatar = 'profile/default_avatar.png'

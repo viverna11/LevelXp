@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+
 # Create your models here.
 class Post(models.Model):
     STATUS = [('Enabled', 'Enabled'),
@@ -10,7 +11,7 @@ class Post(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=10, choices=STATUS, default='Enabled')
+    status = models.CharField(max_length=10, choices=STATUS, default='Enabled')    
     
     
     def __str__(self):
@@ -24,7 +25,7 @@ class Comment(models.Model):
     
 
     def __str__(self):
-        return self.post
+        return f"Comment by {self.author.username} on {self.post.title}"
     
 
 
