@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from homepage.models import Post
+from auth_system.models import CastomUser, Folow
 
 def login_view(request):
     user_name = request.POST.get('username')
@@ -29,3 +30,18 @@ def user_view(request):
     return render(request, 'auth_system/profile.html', context)
     
 # def register_view(request):
+
+def follow_user(request, user_id):
+    following_user = request.user
+    Folow.objects.get_or_create(
+        follower=CastomUser.objects.get(user=following_user),
+        following=CastomUser.objects.get(id=user_id)
+    )
+
+def unfollow_user(request, user_id):
+    following_user = request.user
+    Folow.objects.get_or_create(
+        follower=CastomUser.objects.get(user=following_user),
+        following=CastomUser.objects.get(id=user_id)
+    ).delete()
+    

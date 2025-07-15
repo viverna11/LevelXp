@@ -2,7 +2,7 @@
 {% block content %}
 {% load static %}
 <div class="column main-box">
-    <div>
+    <div class="content-box main-box">
         {% if user.custom_user.avatar %}
         <img src="{{ user.custom_user.avatar.url }}" alt="Avatar" class="profile">
         {% else %}
@@ -11,7 +11,25 @@
         <div>
             username: {{ user.username }} профіль створенно: {{user.created_at}}
             <p>Bio: {{ user.custom_user.bio }}</p>
-        </div>
+            <p>
+                <a href="#"><button class="custom-button">редагувати акаунт</button></a>
+                <a href="{% url 'create_room' %}"><button class="custom-button" type="submit">створити кімнату</button></a>
+            </p>
+        </div>    
+    </div>
+    <div class="content-box main-box">
+        {{ ChatRoom.author.username }}
+        {{ user.username }}
+        {% if chat_room.author == user.username %}
+        <h2>Кімнати, які ви створили:</h2>
+            {% for room in chat_room %}
+            <div class="content-box">
+                <h3>{{ room.room_name }}</h3>
+                <p>Створено: {{ room.created_at }}</p>
+                <p>Автор: {{ room.author.username }}</p>
+                <a href="{% url 'chat_room' room.room_id %}"><button class="custom-button">Перейти до кімнати</button></a>
+            {% endfor %}
+        {% endif %}
     </div>
     <div class="content-box main-box">
         {% for post in my_post %}
