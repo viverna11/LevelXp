@@ -12,6 +12,7 @@ class CastomUser(models.Model):
         return self.user.username
 
 class Folow(models.Model):
+    switcher = models.BooleanField(default=False)
     follower = models.ForeignKey(CastomUser, on_delete=models.CASCADE, related_name='following')
     following = models.ForeignKey(CastomUser, on_delete=models.CASCADE, related_name='followers') 
     created_at = models.DateTimeField(auto_now_add=True)

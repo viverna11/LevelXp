@@ -11,6 +11,13 @@
         <div>
             username: {{ user.username }} профіль створенно: {{user.created_at}}
             <p>Bio: {{ user.custom_user.bio }}</p>
+            <div>
+                {% if user.custom_user.followers.switcher %}
+                    <a href="{% url 'unfollow_user' user.id %}"><img src="" alt="unFollow"></a>
+                {% else %}
+                    <a href="{% url 'follow_user' user.id %}"><img src="" alt="follow"></a>
+                {% endif %}
+            </div>
             <p>
                 <a href="#"><button class="custom-button">редагувати акаунт</button></a>
                 <a href="{% url 'create_room' %}"><button class="custom-button" type="submit">створити кімнату</button></a>
@@ -18,18 +25,27 @@
         </div>    
     </div>
     <div class="content-box main-box">
-        {{ ChatRoom.author.username }}
-        {{ user.username }}
-        {% if chat_room.author == user.username %}
-        <h2>Кімнати, які ви створили:</h2>
-            {% for room in chat_room %}
+        
+        
+            {% for room in chat_rooms%}
             <div class="content-box">
-                <h3>{{ room.room_name }}</h3>
-                <p>Створено: {{ room.created_at }}</p>
-                <p>Автор: {{ room.author.username }}</p>
-                <a href="{% url 'chat_room' room.room_id %}"><button class="custom-button">Перейти до кімнати</button></a>
+                <h2>{{ room.room_name }}</h2>
+                {{ room.author }}
+                {{ user.username }}
+                {% if chat_room.author == user.username %}
+                
+
+                <h2>Кімнати, які ви створили:</h2>
+                <div class="content-box">
+                    <h3>{{ room.room_name }}</h3>
+                    <p>Створено: {{ room.created_at }}</p>
+                    <p>Автор: {{ room.author.username }}</p>
+                    <a href="{% url 'chat_room' room.room_id %}"><button class="custom-button">Перейти до кімнати</button></a>
+                </div>
+                    {% endif %}
+            </div>
             {% endfor %}
-        {% endif %}
+            
     </div>
     <div class="content-box main-box">
         {% for post in my_post %}

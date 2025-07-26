@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView
 from .models import ChatRoom, Message
+
 from . import forms, models
 
 
 class ChatRoomListView(ListView):
     model = ChatRoom
     context_object_name = "chat_rooms"
-    template_name = 'chat/chat_room_list.html'
+    template_name = 'chat/chat_rooms.html'
 
 
 def create_room(request):
