@@ -3,12 +3,13 @@
 {% load static %}
 <div class="column main-box">
     <div class="content-box main-box">
-        {% if user.custom_user.avatar %}
+        {% if user.custom_user.avatar != '' %}
         <img src="{{ user.custom_user.avatar.url }}" alt="Avatar" class="profile">
         {% else %}
         <img src="{% static 'img/default_avatar.png' %}" alt="Avatar" class="profile">
         {% endif %}
         <div>
+            {{ user.custom_user.avatar.url }}
             username: {{ user.username }} профіль створенно: {{user.created_at}}
             <p>Bio: {{ user.custom_user.bio }}</p>
             <div>
@@ -19,7 +20,7 @@
                 {% endif %}
             </div>
             <p>
-                <a href="#"><button class="custom-button">редагувати акаунт</button></a>
+                <a href="{% url 'edit_profile' %}"><button class="custom-button">редагувати акаунт</button></a>
                 <a href="{% url 'create_room' %}"><button class="custom-button" type="submit">створити кімнату</button></a>
             </p>
         </div>    
@@ -29,12 +30,8 @@
         
             {% for room in chat_rooms%}
             <div class="content-box">
-                <h2>{{ room.room_name }}</h2>
-                {{ room.author }}
-                {{ user.username }}
-                {% if chat_room.author == user.username %}
                 
-
+                {% if chat_room.author == user.username %}
                 <h2>Кімнати, які ви створили:</h2>
                 <div class="content-box">
                     <h3>{{ room.room_name }}</h3>

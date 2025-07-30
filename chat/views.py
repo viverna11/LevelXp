@@ -17,7 +17,7 @@ def create_room(request):
         if form.is_valid():
             room_name = form.cleaned_data['room_name']
             description = form.cleaned_data['description']
-            room_id = chat_room.room_id
+            room_id = ChatRoom.room_id
             chat_room = models.ChatRoom.objects.create(
                 room_name=room_name,
                 description=description,

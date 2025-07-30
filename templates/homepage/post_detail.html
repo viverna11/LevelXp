@@ -1,9 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
+{% load static %}
+
 <div class="column main-box">
     <div class='content-box'>
         <p style="margin-top: 0px;">
+        {% if post.author.custom_user.avatar.url %}
             <img src="{{ post.author.custom_user.avatar.url }}" alt="Avatar" class="mini-profile">
+        {% else %}
+            <img src="{% static 'img/default_avatar.png' %}" alt="Avatar" class="mini-profile">
+        {% endif %}
             {{ post.author.username }} {{ post.created_at }}<br>
         </p>
         <h2>{{ post.title }}</h2>
@@ -26,12 +32,16 @@
         {% for comment in comments %}
         <div>
             <p>
-            {% if post.author.custom_user.avatar.url == "/static/img/default_avatar.png" %}
-                <img src="static/img/default_avatar.png" alt="Avatar" class="mini-profile">
-                fgdfgdf
-            {% else %}
-                <img src="{{ comment.author.custom_user.avatar.url }}" alt="Avatar" class="mini-profile">
-            {% endif %}    
+                {% if comment.author.custom_user.avatar.url %}
+                    <img src="{{ comment.author.custom_user.avatar.url }}" alt="Avatar" class="mini-profile">
+                {% else %}
+                    <img src="{% static 'img/default_avatar.png' %}" alt="Avatar" class="mini-profile">
+                {% endif %}
+
+
+
+
+                
             {{ comment.author }}: {{ comment.created_at }} 
             </p>
             <p>{{ comment.content }}</p>

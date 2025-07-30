@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+<div>
+    <form method="post" action="{% url 'edit_profile' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <label for="avatar">avatar:</label>
+            <input type="file" id="image" name="image">
+        </div>
+        <div>
+            <label for="bio">bio:</label>
+            <input type="text" id="bio" name="bio">
+        </div>
+        <button type="submit" class="custom-button">save changes</button>
+    </form>
+</div>
+
+
+{% endblock %}
