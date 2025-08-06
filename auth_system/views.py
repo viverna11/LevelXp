@@ -49,7 +49,7 @@ def unfollow_user(request, user_id):
         follower=CastomUser.objects.get(user=following_user),
         following=CastomUser.objects.get(id=user_id)
     ).delete()
-    #дві проблеми цей шлях і редагування постів
+    
 def edit_profile(request):
     cuser = get_object_or_404(CastomUser, user=request.user)
     if request.method == "POST":

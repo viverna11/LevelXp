@@ -2,6 +2,7 @@
 {% block content %}
 {% load static %}
 <div class="column main-box">
+    <!-- тут починається профіль -->
     <div class="content-box main-box">
         {% if user.custom_user.avatar != '' %}
         <img src="{{ user.custom_user.avatar.url }}" alt="Avatar" class="profile">
@@ -9,7 +10,6 @@
         <img src="{% static 'img/default_avatar.png' %}" alt="Avatar" class="profile">
         {% endif %}
         <div>
-            {{ user.custom_user.avatar.url }}
             username: {{ user.username }} профіль створенно: {{user.created_at}}
             <p>Bio: {{ user.custom_user.bio }}</p>
             <div>
@@ -25,6 +25,7 @@
             </p>
         </div>    
     </div>
+    <!-- тут починається кімнати -->
     <div class="content-box main-box">
         
         
@@ -42,8 +43,8 @@
                     {% endif %}
             </div>
             {% endfor %}
-            
     </div>
+    <!-- тут починаються пости -->
     <div class="content-box main-box">
         {% for post in my_post %}
         <div class="content-box">

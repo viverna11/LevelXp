@@ -35,8 +35,8 @@ def edit_post(request, pk):
         post.title = request.POST.get('title')
         post.content = request.POST.get('content')
         post.save()
-        return render(request, 'homepage/post_detail.html', {'post': post})
-    return render(request, 'homepage/edit_post.html', {'post': post})
+        return redirect("post_detail", pk=post.pk)
+    return render(request, 'homepage/post_edit.html', {'post': post})
 
 def post_delete(request, pk):
     post = Post.objects.get(pk=pk)

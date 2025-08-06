@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
-
-<form method="post">
-    {% csrf_token %}
-    <h2>Create a New Chat Room</h2>
-    {{ form.as_p }}
-    <button type="submit" class="custom_button">Create Room</button>
-
-</form>
-
+<div class="column">
+    <form method="post">
+        {% csrf_token %}
+        <div class="content-box main-box column center">
+        <h2>Create a New Chat Room</h2>
+        {{ form.as_p }}
+        <button type="submit" class="custom_button">Create Room</button>
+        </div>
+    </form>
+</div>
 {% endblock %}

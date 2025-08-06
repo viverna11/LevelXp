@@ -22,8 +22,10 @@ a{
 .main-box{
     display: flex;
     align-items:center;
-    justify-content:space-around;
-    height: 100%;
+    justify-content:center;
+}
+.center{
+    height: 50%;
 }
 .custom-button{
     border-radius: 10px;
