@@ -12,13 +12,15 @@
         <div>
             username: {{ user.username }} профіль створенно: {{user.created_at}}
             <p>Bio: {{ user.custom_user.bio }}</p>
-            <div>
+
+            <!-- <div>
                 {% if user.custom_user.followers.switcher %}
                     <a href="{% url 'unfollow_user' user.id %}"><img src="" alt="unFollow"></a>
                 {% else %}
                     <a href="{% url 'follow_user' user.id %}"><img src="" alt="follow"></a>
                 {% endif %}
-            </div>
+            </div> -->
+
             <p>
                 <a href="{% url 'edit_profile' %}"><button class="custom-button">редагувати акаунт</button></a>
                 <a href="{% url 'create_room' %}"><button class="custom-button" type="submit">створити кімнату</button></a>
@@ -26,34 +28,40 @@
         </div>    
     </div>
     <!-- тут починається кімнати -->
-    <div class="content-box main-box">
-        
-        
+    <div class="content-box-full main-box sort">
+        <h2>Кімнати, в яких ви берете участь:</h2>
+        <div class="sort-left">
             {% for room in chat_rooms%}
-            <div class="content-box">
-                
-                {% if chat_room.author == user.username %}
-                <h2>Кімнати, які ви створили:</h2>
-                <div class="content-box">
-                    <h3>{{ room.room_name }}</h3>
-                    <p>Створено: {{ room.created_at }}</p>
-                    <p>Автор: {{ room.author.username }}</p>
-                    <a href="{% url 'chat_room' room.room_id %}"><button class="custom-button">Перейти до кімнати</button></a>
-                </div>
-                    {% endif %}
-            </div>
+                    {% if room.author.username == user.username or room.member == user.username %}
+                    <a href="{% url 'chat_room' room.room_id %}" class="cursive">
+                    <div class="content-box" style="width: 410px; ">
+                        <h3>{{ room.room_name }}</h3>
+                        <p>Створено: {{ room.created_at }}</p>
+                        <p>Автор: {{ room.author.username }}</p>
+                        <a href="{% url 'chat_room' room.room_id %}"><button class="custom-button">Перейти до кімнати</button></a>
+                        <a href="{% url 'room_delete' room.room_id %}"><button class="custom-button">delete</button></a>
+                    </div>
+                    </a>
+                {% endif %}
             {% endfor %}
+        </div>    
     </div>
     <!-- тут починаються пости -->
-    <div class="content-box main-box">
-        {% for post in my_post %}
-        <div class="content-box">
-            <h2>{{ post.title }}</h2>
-            <p>{{ post.content }}</p>
-            <p>Створено: {{ post.created_at }}</p>
-            <p>Автор: {{ post.author.username }}</p>
+    <div class="content-box-full main-box sort">
+        <h2>Пости користувача:</h2>
+        <div class="sort-left">
+            {% if my_post %}
+            {% for post in my_post %}
+            <div class="content-box" style="width: 410px;">
+                <h2>{{ post.title }}</h2>
+                <p>{{ post.content }}</p>
+                <p>Створено: {{ post.created_at }}</p>
+                <p>Автор: {{ post.author.username }}</p>
+            </div>
+            {% endfor %}
+            {% endif %}
+
         </div>
-        {% endfor %}
     </div>
 </div>
 {% endblock %}

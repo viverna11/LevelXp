@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
-
-<div class="content-box main-box">
-    <form method="post" action="{% url 'post_create' %}" class="column">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="custom-button">Create Post</button>
-    </form>
+<div class="column">
+    <div class="content-box main-box">
+        <form method="post" action="{% url 'post_create' %}" class="column">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="custom-button">Create Post</button>
+        </form>
+    </div>
 </div>
-
 {% endblock %}

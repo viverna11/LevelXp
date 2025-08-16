@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="column">
+    <div class='main-list content-box-full main-box' >
+    <form method="post" action="{% url 'room_delete' room.room_id %}">
+        {% csrf_token %}
+        <h2>Видалити кімнату</h2>
+        <p>Ви впевнені, що хочете видалити цю кімнату?</p>
+        <p><strong>{{ chatroom.room_name }}</strong></p>
+        <button type="submit" class="custom-button">Так, видалити</button>
+        <a href="{% url 'profile' %}"><button type="button" class="custom-button">Скасувати</button></a>
+    </form>
+    </div>
+</div>
+
+{% endblock %}

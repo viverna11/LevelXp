@@ -17,16 +17,26 @@ def create_room(request):
         if form.is_valid():
             room_name = form.cleaned_data['room_name']
             description = form.cleaned_data['description']
-            
+            member = form.cleaned_data['member']
             chat_room = models.ChatRoom.objects.create(
                 room_name=room_name,
                 description=description,
-                author=request.user
+                author=request.user,
+                
             )
             return redirect('profile')
     else:
         form = forms.CreateRoomForm()
     return render(request, 'chat/create_room.html', {'form': form})
+
+
+def delete_room(request, room_id):
+    room = ChatRoom.objects.get(room_id=room_id)
+    if request.method == 'POST':
+        room.delete()
+        return redirect('profile')
+    return render(request, 'chat/room_delete.html', {'room': room})
+
 
 def add_member(request, room_id):
     chat_room = models.ChatRoom.objects.get(room_id=chat_room.room_id)

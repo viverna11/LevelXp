@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+<script>
+        const roomName = '{{ room_name }}';  <!-- Назва кімнати з Django -->
+
+        // Підключення до WebSocket
+        const chatSocket = new WebSocket(
+            'ws://' + window.location.host + '/ws/chat/' + room_name + '/'
+        );
+
+        // Обробка вхідних повідомлень
+        chatSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            document.querySelector('#chat-log').innerHTML +=
+                `<div><b>${data.user}:</b> ${data.message}</div>`;
+        };
+
+        // Обробка закриття з’єднання
+        chatSocket.onclose = function(e) {
+            console.error('З’єднання закрито');
+        };
+
+        // Відправка повідомлення
+        document.querySelector('#chat-message-submit').onclick = function(e) {
+            const messageInput = document.querySelector('#chat-message-input');
+            const message = messageInput.value;
+            chatSocket.send(JSON.stringify({
+                'message': message
+            }));
+            messageInput.value = '';
+        };
+    </script>
+<div class="main-box column">
+    <div class="content-box">
+{{  chat_room.room_name }}
+
+<div id="chat-log"></div>
+<input id="chat-message-input" type="text" size="100">
+<input id="chat-message-submit" type="button" value="Надіслати" onclick="sendMessage(document.querySelector('#chat-message-input').value)">
+
+
+    <!-- <div>
+        <h1>Chat Room: {{ chat_room.description }}</h1>
+        <p>Created at: {{ chat_room.created_at }}</p>
+    </div>
+    <div>
+        <h2>Messages</h2>
+        {% for message in chat_room.messages.all %}
+            <div class="message">
+                {% if message.user %}
+                    <strong>{{ message.user.username }}:</strong>
+                {% else %}
+                    <strong>Anonymous:</strong>
+                {% endif %}
+                <p>{{ message.content }}</p>
+                <small>{{ message.created_at }}</small>
+            </div>
+        {% endfor %} -->
+
+</div>
+</div>
+
+
+
+{% endblock %}

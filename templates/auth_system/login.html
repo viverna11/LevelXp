@@ -1,16 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="main-box content-box">
-    <form method="post">
-        {% csrf_token %}
-        <div>
-        <label for="username">username</label>
-        <input type="text" name="username" required>
-        </div><div>
-        <label for="password">password</label>
-        <input type="password" name="password" required>
-        </div>
-        <div><button type="submit"class="custom-button">увійти</button></div>
-    </form>
+<div class="column">
+    <div class="main-box content-box">
+        <form method="post">
+            {% csrf_token %}
+            <div>
+            <label for="username">username</label>
+            <input type="text" name="username" required>
+            </div><div>
+            <label for="password">password</label>
+            <input type="password" name="password" required>
+            </div>
+            <div><button type="submit"class="custom-button">увійти</button></div>
+        </form>
+    </div>
 </div>
 {% endblock %}
